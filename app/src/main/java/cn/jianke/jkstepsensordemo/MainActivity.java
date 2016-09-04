@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
         // onClick
         findViewById(R.id.btn_start_step).setOnClickListener(this);
         findViewById(R.id.btn_stop_step).setOnClickListener(this);
+        findViewById(R.id.btn_history_step).setOnClickListener(this);
         // 开始计步
         startService();
     }
@@ -123,9 +124,26 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
                 // 停止计步
                 stopService();
                 break;
+            case R.id.btn_history_step:
+                gotoHistory();
+                break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 启动服务
+     * @author leibing
+     * @createTime 2016/08/31
+     * @lastModify 2016/08/31
+     * @param
+     * @return
+     */
+    private void gotoHistory() {
+        Intent intent = new Intent();
+        intent.setClass(this, HistoryActivity.class);
+        startActivity(intent);
     }
 
     /**
