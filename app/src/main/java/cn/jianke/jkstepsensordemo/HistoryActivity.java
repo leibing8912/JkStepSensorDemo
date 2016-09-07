@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Date;
 import cn.jianke.jkstepsensor.common.data.DataCache;
 import cn.jianke.jkstepsensor.common.data.bean.StepModel;
+import cn.jianke.jkstepsensor.common.utils.DateUtils;
 
 /**
  * @className: HistoryActivity
@@ -39,9 +41,16 @@ public class HistoryActivity extends AppCompatActivity {
             public void readListCache(StepModel stepModel) {
 
             }
-
+            
             @Override
             public void readAllCache(ArrayList<StepModel> mData) {
+                // 历史记录剔除今日数据
+                for (StepModel stepModel:mData){
+                    if (stepModel.getDate().equals(DateUtils.simpleDateFormat(new Date()))){
+                        mData.remove(stepModel);
+                        break;
+                    }
+                }
                 mAdapter.setData(mData);
                 mAdapter.notifyDataSetChanged();
             }
